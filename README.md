@@ -2,6 +2,23 @@
 
 This test environment validates Istio VirtualService routing based on sourceNamespace matching.
 
+## Quick Start
+
+Run the automated test script to set up everything and run the tests:
+
+```bash
+./run-test.sh
+```
+
+The script will:
+- ✓ Check and install prerequisites (kind, kubectl, istioctl)
+- ✓ Create a local Kind cluster
+- ✓ Install Istio
+- ✓ Deploy mock services
+- ✓ Apply VirtualService configuration
+- ✓ Run routing tests
+- ✓ Display results
+
 ## Setup Summary
 
 The test environment includes:
@@ -41,8 +58,26 @@ To delete the test cluster:
 kind delete cluster --name istio-routing-test
 ```
 
+## Manual Setup
+
+If you prefer to run the steps manually instead of using the automated script:
+
+### Prerequisites
+- kind
+- kubectl
+- istioctl
+
+### Steps
+1. Create the cluster: `kind create cluster --config kind-config.yaml`
+2. Install Istio: `istioctl install --set profile=demo -y`
+3. Deploy services: `kubectl apply -f mock-services.yaml`
+4. Apply VirtualService: `kubectl apply -f virtualservice.yaml`
+5. Deploy test pods: `kubectl apply -f test-pods.yaml`
+6. Run tests (see Test Results section below)
+
 ## Files
 
+- `run-test.sh` - Automated test script (recommended)
 - `kind-config.yaml` - Kind cluster configuration
 - `mock-services.yaml` - Namespaces and mock services
 - `virtualservice.yaml` - Istio VirtualService with sourceNamespace routing
