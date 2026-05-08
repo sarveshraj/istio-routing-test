@@ -1,0 +1,5 @@
+# Istio installation directory
+istio-*/
+
+# macOS
+.DS_Store

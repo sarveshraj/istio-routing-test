@@ -1,0 +1,20 @@
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: service-a-vs
+  namespace: service-a-ns
+spec:
+  hosts:
+  - service-a.service-a-ns.svc.cluster.local
+  http:
+  # Route traffic from read-only client namespace to service-b
+  - match:
+    - sourceNamespace: "client-readonly-ns"
+    route:
+    - destination:
+        host: service-b.service-b-ns.svc.cluster.local
+  # Default route to service-a for all other traffic
+  - route:
+    - destination:
+        host: service-a.service-a-ns.svc.cluster.local
